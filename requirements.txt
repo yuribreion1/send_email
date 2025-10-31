@@ -1,0 +1,3 @@
+# No runtime third-party requirements. Standard library only.
+# Add test/dev deps below if needed.
+pytest>=7.0.0
