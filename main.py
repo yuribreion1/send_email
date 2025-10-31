@@ -11,6 +11,14 @@ from send_mail import send_email
 
 
 def _parse_args() -> argparse.Namespace:
+    """Build and parse the command-line arguments for the CLI.
+
+    Returns an argparse.Namespace with the parsed CLI options. This helper
+    centralizes the flag definitions used by the module-level CLI `main()`.
+
+    Flags include SMTP connection options, credentials, from/to/subject/body,
+    HTML flag, and attachments.
+    """
     p = argparse.ArgumentParser(description="Send an email via custom SMTP server")
     p.add_argument("--smtp-server", required=True, help="SMTP server hostname or IP")
     p.add_argument("--smtp-port", type=int, default=587, help="SMTP server port")
@@ -28,6 +36,16 @@ def _parse_args() -> argparse.Namespace:
 
 
 def _to_list(s: str) -> List[str]:
+    """Convert a comma-separated string into a list of stripped values.
+
+    Example: "a@example.com, b@example.com" -> ["a@example.com", "b@example.com"]
+
+    Args:
+        s: A comma-separated string.
+
+    Returns:
+        List[str]: The non-empty, stripped components of the input string.
+    """
     return [part.strip() for part in s.split(",") if part.strip()]
 
 

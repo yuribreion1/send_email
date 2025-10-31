@@ -14,6 +14,21 @@ import os
 
 
 def _ensure_list(recipients: Union[str, List[str]]) -> List[str]:
+    """Normalize recipients into a list of address strings.
+
+    Accepts either a list/tuple of addresses or a comma-separated string and
+    returns a list of stripped, non-empty recipient strings.
+
+    Examples:
+        _ensure_list("a@example.com,b@example.com") -> ["a@example.com", "b@example.com"]
+        _ensure_list(["a@example.com"]) -> ["a@example.com"]
+
+    Args:
+        recipients: A single comma-separated string or an iterable of strings.
+
+    Returns:
+        List[str]: A list of recipient email addresses.
+    """
     if isinstance(recipients, (list, tuple)):
         return list(recipients)
     return [r.strip() for r in str(recipients).split(",") if r.strip()]
@@ -81,17 +96,13 @@ def send_email(
         for path in attachments:
             if not os.path.isfile(path):
                 raise FileNotFoundError(f"attachment not found: {path}")
-            ctype, encoding = mimetypes.guess_type(path)
+            ctype = mimetypes.guess_type(path)
             if ctype is None:
                 ctype = "application/octet-stream"
             maintype, subtype = ctype.split("/", 1)
             with open(path, "rb") as fp:
                 data = fp.read()
-            msg.add_attachment(
-                data, 
-                maintype=maintype, 
-                subtype=subtype, 
-                filename=os.path.basename(path))
+            msg.add_attachment(data,maintype=maintype,subtype=subtype,filename=os.path.basename(path))
 
     # Establish connection and send
     if use_ssl:
@@ -114,8 +125,4 @@ def send_email(
         try:
             server.quit()
         except Exception:
-            # best-effort close
-            try:
-                server.close()
-            except Exception:
-                pass
+            server.close()
