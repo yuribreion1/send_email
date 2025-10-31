@@ -52,10 +52,16 @@ def main() -> None:
 
     Raises:
     - Any exceptions raised by _parse_args() for invalid arguments.
-    - Any exceptions propagated from send_email(), such as SMTP/connection errors or file I/O errors when reading attachments.
+    - Any exceptions propagated from send_email(), 
+        such as SMTP/connection errors or file I/O errors 
+        when reading attachments.
 
     Notes:
-    - This function assumes helper functions _parse_args(), _to_list(), and send_email(...) are defined elsewhere in the module.
+    - This function assumes helper functions 
+        _parse_args(), 
+        _to_list(), 
+        and send_email(...) 
+        are defined elsewhere in the module.
     """
     args = _parse_args()
     send_email(

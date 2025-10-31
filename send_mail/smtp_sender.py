@@ -87,11 +87,11 @@ def send_email(
             maintype, subtype = ctype.split("/", 1)
             with open(path, "rb") as fp:
                 data = fp.read()
-            msg.add_attachment(data, 
-                               maintype=maintype, 
-                               subtype=subtype, 
-                               filename=os.path.basename(path)
-                               )
+            msg.add_attachment(
+                data, 
+                maintype=maintype, 
+                subtype=subtype, 
+                filename=os.path.basename(path))
 
     # Establish connection and send
     if use_ssl:
