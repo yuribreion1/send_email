@@ -8,8 +8,9 @@ Features:
 - Optional authentication
 - Attachments supported
 
-Usage (programmatic):
+## Usage (programmatic):
 
+```python
 from send_mail import send_email
 
 send_email(
@@ -22,6 +23,9 @@ send_email(
     subject="Hello",
     body="This is a test",
 )
+```
 
-CLI usage:
+- CLI usage:
+```bash
 python main.py --smtp-server smtp.example.com --to you@example.com --subject hi --body "hello"
+```
