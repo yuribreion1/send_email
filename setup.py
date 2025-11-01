@@ -8,14 +8,14 @@ Metadata included:
 - description: "Small SMTP email sender utility"
 - python_requires: ">=3.8"
 - packages: discovered via setuptools.find_packages(exclude=("tests",))
-- include_package_data: True (expects MANIFEST.in or package_data to include non-code files)
+- include_package_data: True
 Common tasks:
 - Install locally: pip install .
 - Install for development: pip install -e .
 - Build distributions: python -m build  (requires the 'build' package)
 Notes:
 - If migrating to PEP 517/518, consider moving metadata to pyproject.toml.
-- Add long_description, license, author, and classifiers before publishing to PyPI.
+- Add long_description, license, and author
 """
 
 from setuptools import setup, find_packages

@@ -16,6 +16,7 @@ class FakeSMTP:
     implementations of methods used by EmailSender. Tests inspect
     the attributes to assert expected behavior.
     """
+
     def __init__(self, host, port, timeout=None):
         """Create a fake SMTP connection object for tests.
 
@@ -85,13 +86,13 @@ class FakeSMTP:
 class FakeSMTPSSL(FakeSMTP):
     """Mock SMTP_SSL connection, inherits FakeSMTP behavior."""
 
+
 class SendEmailTests(unittest.TestCase):
     """Test suite for EmailSender class and send_email function."""
 
     @patch("smtplib.SMTP", autospec=True)
     def test_send_with_starttls_and_auth(self, mock_smtp_class):
         """Test authenticated email sending with STARTTLS.
-        
         Creates an EmailSender with STARTTLS and auth enabled,
         sends a message, and verifies that:
         1. STARTTLS was initiated
@@ -148,7 +149,6 @@ class SendEmailTests(unittest.TestCase):
     @patch("smtplib.SMTP_SSL", autospec=True)
     def test_send_with_ssl_no_auth(self, mock_ssl_class):
         """Test unauthenticated email sending with SSL.
-        
         Creates an EmailSender with SSL enabled but no auth,
         sends a message, and verifies that:
         1. STARTTLS was not used (SSL connection instead)

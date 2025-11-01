@@ -1,7 +1,6 @@
 """CLI wrapper for send_mail package.
 
-Usage: run this module to send a simple email from the command line.
-This is a lightweight helper; for programmatic use import `send_mail.EmailSender`.
+Usage: for programmatic use import `send_mail.EmailSender`.
 """
 from __future__ import annotations
 
@@ -29,9 +28,13 @@ def _parse_args() -> argparse.Namespace:
     p.add_argument("--subject", default="", help="Email subject")
     p.add_argument("--body", default="", help="Email body")
     p.add_argument("--html", action="store_true", help="Send body as HTML")
-    p.add_argument("--use-ssl", action="store_true", help="Use SMTPS (SSL) instead of STARTTLS")
+    p.add_argument(
+        "--use-ssl", action="store_true", help="Use SMTPS (SSL) instead of STARTTLS"
+    )
     p.add_argument("--no-tls", action="store_true", help="Disable STARTTLS")
-    p.add_argument("--attach", action="append", help="Path to attachment (can be repeated)")
+    p.add_argument(
+        "--attach", action="append", help="Path to attachment (can be repeated)"
+    )
     return p.parse_args()
 
 
@@ -68,16 +71,6 @@ def main() -> None:
 
     Returns:
     - None
-
-    Raises:
-    - Any exceptions raised by _parse_args() for invalid arguments.
-    - Any exceptions propagated from EmailSender.send(), 
-        such as SMTP/connection errors or file I/O errors 
-        when reading attachments.
-
-    Notes:
-    - This function assumes helper functions 
-        _parse_args() and _to_list() are defined elsewhere in the module.
     """
     args = _parse_args()
     # Create sender with connection settings

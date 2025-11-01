@@ -44,6 +44,7 @@ class EmailSender:
         sender = EmailSender("smtp.example.com", username="user", password="pass")
         sender.send(recipients="you@example.com", subject="Hi", body="Test")
     """
+
     def __init__(
         self,
         smtp_server: str,
@@ -60,8 +61,8 @@ class EmailSender:
         Args:
             smtp_server: hostname or IP of SMTP server.
             smtp_port: port to connect to (defaults: 587 for STARTTLS, 465 for SSL).
-            username: username for authentication (optional).
-            password: password for authentication (optional).
+            username: username for authentication.
+            password: password for authentication.
             use_tls: whether to use STARTTLS (only when use_ssl is False).
             use_ssl: whether to use SMTPS (connect with SSL). If True, `use_tls` is ignored.
             sender: envelope From address. If None and username provided, username is used.
@@ -130,7 +131,7 @@ class EmailSender:
                     data,
                     maintype=maintype,
                     subtype=subtype,
-                    filename=os.path.basename(path)
+                    filename=os.path.basename(path),
                 )
 
         # Establish connection and send
@@ -153,10 +154,10 @@ class EmailSender:
         finally:
             try:
                 server.quit()
-            except Exception:
+            except smtplib.SMTPResponseException:
                 try:
                     server.close()
-                except Exception:
+                except smtplib.SMTPResponseException:
                     pass
 
 
@@ -183,16 +184,16 @@ def send_email(
 
     Args:
         smtp_server: hostname or IP of SMTP server.
-        smtp_port: port to connect to (defaults: 587 for STARTTLS, 465 for SSL).
-        sender: envelope From address. If None and username provided, username is used.
-        recipients: single address or list/comma-separated string of recipients.
+        smtp_port: port to connect to (587 for STARTTLS, 465 for SSL).
+        sender: envelope From address.
+        recipients: list/comma-separated string of recipients.
         subject: message subject.
         body: message body (plain text or HTML depending on `html`).
         html: whether body should be sent as HTML.
-        username: username for authentication (optional).
-        password: password for authentication (optional).
-        use_tls: whether to use STARTTLS (only when use_ssl is False).
-        use_ssl: whether to use SMTPS (connect with SSL). If True, `use_tls` is ignored.
+        username: username for authentication.
+        password: password for authentication.
+        use_tls: whether to use STARTTLS
+        use_ssl: whether to use SMTPS. If True, `use_tls` is ignored.
         attachments: list of file paths to attach.
         timeout: socket timeout in seconds.
 
