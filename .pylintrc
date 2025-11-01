@@ -13,7 +13,16 @@ disable=
     R0903,  # too-few-public-methods
 
 [REPORTS]
+# Set the output format (text, parseable, colorized, json, msvs)
+output-format=colorized
 
+# Include message's id in output
+include-ids=yes
+
+# Put messages in a separate file for each module / package
+reports=yes
+
+# Evaluate to a score
 score=yes
 
 [BASIC]
