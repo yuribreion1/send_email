@@ -11,6 +11,7 @@ disable=
     R0913,  # too-many-arguments
     R0917,  # too-many-positional-arguments
     R0903,  # too-few-public-methods
+    E0015,
 
 [REPORTS]
 # Set the output format (text, parseable, colorized, json, msvs)

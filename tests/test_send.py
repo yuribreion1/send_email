@@ -38,7 +38,6 @@ class FakeSMTP:
         This fake implementation is a no-op but mirrors the real
         SMTP object's method signature so EmailSender can call it safely.
         """
-        return
 
     def starttls(self):
         """Mark that STARTTLS was invoked on the connection.
@@ -73,14 +72,12 @@ class FakeSMTP:
 
         No-op for the fake; present so EmailSender's cleanup code can call it.
         """
-        return
 
     def close(self):
         """Force-close the underlying connection.
 
         No-op for the fake; provided to mirror smtplib.SMTP's API.
         """
-        return
 
 
 class FakeSMTPSSL(FakeSMTP):
