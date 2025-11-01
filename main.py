@@ -1,13 +1,13 @@
 """CLI wrapper for send_mail package.
 
 Usage: run this module to send a simple email from the command line.
-This is a lightweight helper; for programmatic use import `send_mail.send_email`.
+This is a lightweight helper; for programmatic use import `send_mail.EmailSender`.
 """
 from __future__ import annotations
 
 import argparse
 from typing import List
-from send_mail import send_email
+from send_mail import EmailSender
 
 
 def _parse_args() -> argparse.Namespace:
@@ -55,10 +55,11 @@ def main() -> None:
 
     This function is the program entry point for a small CLI email sender. It:
     - Parses command-line arguments via _parse_args().
-    - Builds a call to send_email(...) using parsed values:
-        smtp_server, smtp_port, sender, recipients (converted from args.to),
-        subject, body, html flag, username, password, use_ssl, use_tls, and attachments.
-    - Converts an empty attachments list to None before passing to send_email.
+    - Creates an EmailSender instance with SMTP connection settings.
+    - Calls send() with the message details from arguments:
+        recipients (converted from args.to), subject, body, html flag,
+        and attachments.
+    - Converts an empty attachments list to None before passing to send().
     - Uses the inverse of args.no_tls to determine whether to enable STARTTLS.
 
     Side effects:
@@ -70,30 +71,31 @@ def main() -> None:
 
     Raises:
     - Any exceptions raised by _parse_args() for invalid arguments.
-    - Any exceptions propagated from send_email(), 
+    - Any exceptions propagated from EmailSender.send(), 
         such as SMTP/connection errors or file I/O errors 
         when reading attachments.
 
     Notes:
     - This function assumes helper functions 
-        _parse_args(), 
-        _to_list(), 
-        and send_email(...) 
-        are defined elsewhere in the module.
+        _parse_args() and _to_list() are defined elsewhere in the module.
     """
     args = _parse_args()
-    send_email(
+    # Create sender with connection settings
+    sender = EmailSender(
         smtp_server=args.smtp_server,
         smtp_port=args.smtp_port,
-        sender=args.sender,
-        recipients=_to_list(args.to),
-        subject=args.subject,
-        body=args.body,
-        html=args.html,
         username=args.username,
         password=args.password,
         use_ssl=args.use_ssl,
         use_tls=not args.no_tls,
+        sender=args.sender,
+    )
+    # Send the message
+    sender.send(
+        recipients=_to_list(args.to),
+        subject=args.subject,
+        body=args.body,
+        html=args.html,
         attachments=args.attach or None,
     )
 

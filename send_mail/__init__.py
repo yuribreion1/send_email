@@ -1,9 +1,10 @@
 """send_mail package
 
 Public API:
-- send_email: send an email via a configurable SMTP server
+- EmailSender: class for sending emails via configurable SMTP server
+- send_email: legacy function API for sending emails (prefer EmailSender)
 """
 
-from .smtp_sender import send_email
+from .smtp_sender import EmailSender, send_email
 
-__all__ = ["send_email"]
+__all__ = ["EmailSender", "send_email"]
