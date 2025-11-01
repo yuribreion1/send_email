@@ -1,6 +1,6 @@
 package:
   name: send_mail
-  version: 0.1.0
+  version: 0.2.0
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
@@ -18,8 +18,6 @@ requirements:
     - setuptools
   run:
     - python >=3.8
-    - numpy
-    - pandas
 
 test:
   imports:

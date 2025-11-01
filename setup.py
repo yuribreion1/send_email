@@ -4,7 +4,7 @@ This module defines setuptools configuration used to package and distribute
 the 'send_mail' utility — a small SMTP email sender.
 Metadata included:
 - name: "send_mail"
-- version: "0.1.0"
+- version: "0.2.0"
 - description: "Small SMTP email sender utility"
 - python_requires: ">=3.8"
 - packages: discovered via setuptools.find_packages(exclude=("tests",))
