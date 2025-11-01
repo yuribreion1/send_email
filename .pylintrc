@@ -1,0 +1,41 @@
+[MASTER]
+# Specify a score threshold under which the program will exit with error.
+fail-under=7.0
+# Files or directories to be skipped
+ignore=CVS,.git,__pycache__,.venv,venv,env,node_modules
+
+[MESSAGES CONTROL]
+
+disable=
+    R0902,  # too-many-instance-attributes
+    R0913,  # too-many-arguments
+    R0917,  # too-many-positional-arguments
+    R0903,  # too-few-public-methods
+
+[REPORTS]
+
+score=yes
+
+[BASIC]
+# Good variable names which should always be accepted
+good-names=i,j,k,ex,Run,_,id,pk
+
+# Regular expression for variable names
+variable-rgx=[a-z_][a-z0-9_]{2,30}$
+
+# Regular expression for function names
+function-rgx=[a-z_][a-z0-9_]{2,30}$
+
+# Regular expression for constant names
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__))$
+
+
+[FORMAT]
+# Maximum number of characters on a single line
+max-line-length=120
+
+# Maximum number of lines in a module
+max-module-lines=1000
+
+# String used for indentation (4 spaces)
+indent-string='    '

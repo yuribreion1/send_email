@@ -18,24 +18,26 @@ def _parse_args() -> argparse.Namespace:
     Flags include SMTP connection options, credentials, from/to/subject/body,
     HTML flag, and attachments.
     """
-    p = argparse.ArgumentParser(description="Send an email via custom SMTP server")
-    p.add_argument("--smtp-server", required=True, help="SMTP server hostname or IP")
-    p.add_argument("--smtp-port", type=int, default=587, help="SMTP server port")
-    p.add_argument("--username", help="SMTP username (optional)")
-    p.add_argument("--password", help="SMTP password (optional)")
-    p.add_argument("--from", dest="sender", help="From email address")
-    p.add_argument("--to", required=True, help="Recipient(s) (comma separated)")
-    p.add_argument("--subject", default="", help="Email subject")
-    p.add_argument("--body", default="", help="Email body")
-    p.add_argument("--html", action="store_true", help="Send body as HTML")
-    p.add_argument(
+    parser = argparse.ArgumentParser(description="Send an email via custom SMTP server")
+    parser.add_argument(
+        "--smtp-server", required=True, help="SMTP server hostname or IP"
+    )
+    parser.add_argument("--smtp-port", type=int, default=587, help="SMTP server port")
+    parser.add_argument("--username", help="SMTP username (optional)")
+    parser.add_argument("--password", help="SMTP password (optional)")
+    parser.add_argument("--from", dest="sender", help="From email address")
+    parser.add_argument("--to", required=True, help="Recipient(s) (comma separated)")
+    parser.add_argument("--subject", default="", help="Email subject")
+    parser.add_argument("--body", default="", help="Email body")
+    parser.add_argument("--html", action="store_true", help="Send body as HTML")
+    parser.add_argument(
         "--use-ssl", action="store_true", help="Use SMTPS (SSL) instead of STARTTLS"
     )
-    p.add_argument("--no-tls", action="store_true", help="Disable STARTTLS")
-    p.add_argument(
+    parser.add_argument("--no-tls", action="store_true", help="Disable STARTTLS")
+    parser.add_argument(
         "--attach", action="append", help="Path to attachment (can be repeated)"
     )
-    return p.parse_args()
+    return parser.parse_args()
 
 
 def _to_list(s: str) -> List[str]:
