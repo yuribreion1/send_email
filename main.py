@@ -59,10 +59,6 @@ def main() -> None:
     This function is the program entry point for a small CLI email sender. It:
     - Parses command-line arguments via _parse_args().
     - Creates an EmailSender instance with SMTP connection settings.
-    - Calls send() with the message details from arguments:
-        recipients (converted from args.to), subject, body, html flag,
-        and attachments.
-    - Converts an empty attachments list to None before passing to send().
     - Uses the inverse of args.no_tls to determine whether to enable STARTTLS.
 
     Side effects:
@@ -89,7 +85,6 @@ def main() -> None:
         subject=args.subject,
         body=args.body,
         html=args.html,
-        attachments=args.attach or None,
     )
 
 

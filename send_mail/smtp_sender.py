@@ -9,8 +9,6 @@ from __future__ import annotations
 import smtplib
 from email.message import EmailMessage
 from typing import List, Optional, Union
-import mimetypes
-import os
 
 
 def _ensure_list(recipients: Union[str, List[str]]) -> List[str]:
@@ -83,20 +81,17 @@ class EmailSender:
         subject: str = "",
         body: str = "",
         html: bool = False,
-        attachments: Optional[List[str]] = None,
     ) -> None:
         """Send an email using the configured SMTP settings.
 
         Args:
-            recipients: single address or list/comma-separated string of recipients.
+            recipients: address(es) to send to.
             subject: message subject.
             body: message body (plain text or HTML depending on `html`).
             html: whether body should be sent as HTML.
-            attachments: list of file paths to attach.
 
         Raises:
             ValueError: if recipients is None or empty.
-            FileNotFoundError: if an attachment path doesn't exist.
             smtplib.SMTPException: if sending fails.
         """
         if recipients is None:
@@ -115,25 +110,6 @@ class EmailSender:
             msg.add_alternative(body, subtype="html")
         else:
             msg.set_content(body)
-
-        # Attach files if provided
-        if attachments:
-            for path in attachments:
-                if not os.path.isfile(path):
-                    raise FileNotFoundError(f"attachment not found: {path}")
-                ctype, _ = mimetypes.guess_type(path)
-                if ctype is None:
-                    ctype = "application/octet-stream"
-                maintype, subtype = ctype.split("/", 1)
-                with open(path, "rb") as fp:
-                    data = fp.read()
-                msg.add_attachment(
-                    data,
-                    maintype=maintype,
-                    subtype=subtype,
-                    filename=os.path.basename(path),
-                )
-
         # Establish connection and send
         if self.use_ssl:
             smtp_class = smtplib.SMTP_SSL
@@ -174,7 +150,6 @@ def send_email(
     password: Optional[str] = None,
     use_tls: bool = True,
     use_ssl: bool = False,
-    attachments: Optional[List[str]] = None,
     timeout: Optional[float] = 10.0,
 ) -> None:
     """Send an email (legacy function API, prefer using EmailSender class).
@@ -194,11 +169,9 @@ def send_email(
         password: password for authentication.
         use_tls: whether to use STARTTLS
         use_ssl: whether to use SMTPS. If True, `use_tls` is ignored.
-        attachments: list of file paths to attach.
         timeout: socket timeout in seconds.
 
     Raises:
-        FileNotFoundError: if an attachment path doesn't exist.
         smtplib.SMTPException: if sending fails.
     """
     sender = EmailSender(
@@ -216,5 +189,4 @@ def send_email(
         subject=subject,
         body=body,
         html=html,
-        attachments=attachments,
     )
