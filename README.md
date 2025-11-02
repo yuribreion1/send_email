@@ -1,4 +1,4 @@
-# send_mail
+# send_mail_simplified
 
 Small utility package that provides a single function to send email via a configurable SMTP server.
 
@@ -11,7 +11,7 @@ Features:
 ## Usage (programmatic):
 
 ```python
-from send_mail import send_email
+from send_mail_simplified import send_email
 
 send_email(
     smtp_server="smtp.example.com",

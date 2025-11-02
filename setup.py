@@ -1,9 +1,9 @@
 """
-Setup script for the send_mail package.
+Setup script for the send_mail_simplified package.
 This module defines setuptools configuration used to package and distribute
-the 'send_mail' utility — a small SMTP email sender.
+the 'send_mail_simplified' utility — a small SMTP email sender.
 Metadata included:
-- name: "send_mail"
+- name: "send_mail_simplified"
 - version: "0.2.0"
 - description: "Small SMTP email sender utility"
 - python_requires: ">=3.8"
@@ -21,7 +21,7 @@ Notes:
 from setuptools import setup, find_packages
 
 setup(
-    name="send_mail",
+    name="send_mail_simplified",
     version="0.2.0",
     description="Small SMTP email sender utility",
     packages=find_packages(exclude=("tests",)),

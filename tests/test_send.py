@@ -1,4 +1,4 @@
-"""Tests for send_mail package.
+"""Tests for send_mail_simplified package.
 
 Tests both the EmailSender class and legacy send_email function.
 Uses mocked SMTP classes to avoid real network calls.
@@ -6,7 +6,7 @@ Uses mocked SMTP classes to avoid real network calls.
 import unittest
 from unittest.mock import patch
 
-import send_mail.smtp_sender as sender_mod
+import send_mail_simplified.smtp_sender as sender_mod
 
 
 class FakeSMTP:

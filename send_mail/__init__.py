@@ -1,4 +1,4 @@
-"""send_mail package
+"""send_mail_simplified package
 
 Public API:
 - EmailSender: class for sending emails via configurable SMTP server

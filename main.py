@@ -1,12 +1,12 @@
-"""CLI wrapper for send_mail package.
+"""CLI wrapper for send_mail_simplified package.
 
-Usage: for programmatic use import `send_mail.EmailSender`.
+Usage: for programmatic use import `send_mail_simplified.EmailSender`.
 """
 from __future__ import annotations
 
 import argparse
 from typing import List
-from send_mail import EmailSender
+from send_mail_simplified import EmailSender
 
 
 def _parse_args() -> argparse.Namespace:
