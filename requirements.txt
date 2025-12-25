@@ -1,3 +1,6 @@
 # No runtime third-party requirements. Standard library only.
 # Add test/dev deps below if needed.
 pytest>=7.0.0
+setuptools>=60.0.0
+pre-commit>=2.20.0
+black>=23.0.0
